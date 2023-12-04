@@ -69,7 +69,6 @@ stars_columns = []
 
 star_id_to_numbers_rank = {}
 for i, n in enumerate(numbers):
-    possible = False
     for r in rows[i]:
         for c in columns[i]:
             if input[r][c] == "*":
