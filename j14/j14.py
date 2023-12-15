@@ -1,5 +1,4 @@
 import numpy as np
-from tqdm import tqdm 
 
 with open('j14_input.txt') as f:
     input = f.readlines()
