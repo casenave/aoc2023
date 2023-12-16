@@ -1,71 +1,52 @@
 with open('j12_input.txt') as f:
     input = f.readlines()
 
-infos = []
 groups = []
+infos = []
 for line in input:
     line = line.split(" ")
-    info = [inf for inf in line[0].split(".") if inf != ''] 
-    group = [int(d) for d in line[1].strip().split(",")]
-
-    infos.append(info)
-    groups.append(group)
+    infos.append(line[0])
+    groups.append(tuple([int(d) for d in line[1].strip().split(",")]))
 
 
-import numpy as np
-import itertools
+from functools import cache
 
-def compute_arangements(infos, groups):
+@cache
+def count_arangements(infos, groups, cur_local_len = 0):
+    if not infos:
+        if ((len(groups)==1 and groups[0] == cur_local_len) or (len(groups)==0 and cur_local_len == 0)):
+            return 1
+        return 0
+    info = infos[0]
+    infos = infos[1:]
 
-    res = 0
-    for I, (info, group) in enumerate(zip(infos, groups)):
+    group, *new_groups = groups or [0]
+    new_groups = tuple(new_groups)
 
-        nb_springs = np.sum(group)
-        existing_springs = 0
-        for inf in info:
-            existing_springs += inf.count('#')
-        remaining_springs = nb_springs - existing_springs
-            
-        combinations = []
-        for inf in info:
-            n_unknowns = inf.count('?')
-            combinations.append(itertools.product(range(2), repeat=n_unknowns))
-
-        combinations = itertools.product(*combinations) 
-
-        tentative_combinations = []
-        for c in combinations:
-            lens = sum([sum(cc) for cc in c])
-            if lens == remaining_springs: 
-                tentative_info = [np.array([i for i in inf], dtype=str) for inf in info]
-                for i, cc in enumerate(c):
-                    cc = np.array(cc)
-                    filtered_indices = np.arange(len(tentative_info[i]))[tentative_info[i]=='?']
-                    tentative_info[i][filtered_indices[cc==1]] = "#"
-                    tentative_info[i][filtered_indices[cc==0]] = "."
-                    
-                tti = ["".join(ti).split(".") for ti in tentative_info]
-                tentative_info = []
-                for ti in tti:
-                    for t in ti:
-                        if t != '':
-                            tentative_info.append(t)  
-                
-                possible = True
-                if len(tentative_info) != len(group):
-                    possible = False
-                for II in range(min(len(group), len(tentative_info))):
-                    if len(tentative_info[II]) != group[II]:
-                        possible = False
-
-                if possible == True:            
-                    tentative_combinations.append(tentative_info)   
+    if info == '?':
+        return count_arangements('#'+infos, groups, cur_local_len) + count_arangements('.'+infos, groups, cur_local_len)
+    if info == '#':
+        if cur_local_len > group:
+            return 0
+        else:
+            return count_arangements(infos, groups, cur_local_len + 1)
+    if info == '.':
+        if cur_local_len == 0:
+            return count_arangements(infos, groups, 0)
+        if cur_local_len == group:
+            return count_arangements(infos, new_groups, 0)
+        return 0
 
 
-        res += len(tentative_combinations)
+res = 0
+for info, group in zip(infos, groups):
+    res += count_arangements(info, group)
 
-    return res
+print("res part 1 =", res)
 
-print('res part 1 =', compute_arangements(infos, groups))
 
-    
+res = 0
+for info, group in zip(infos, groups):
+    res += count_arangements("?".join(5*[info]), 5*group)
+
+print("res part 2 =", res)
