@@ -1,4 +1,4 @@
-print("DSICLAMER: solution taken from https://github.com/AllanTaylor314/AdventOfCode/blob/main/2023/17.py")
+print("DISCLAMER: solution taken from https://github.com/AllanTaylor314/AdventOfCode/blob/main/2023/17.py")
 
 from collections import defaultdict, deque
 
