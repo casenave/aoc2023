@@ -1,3 +1,5 @@
+print("DISCLAMER: shoelace trick inspired from https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/")
+
 import numpy as np
 
 with open('j18_input.txt') as f:
