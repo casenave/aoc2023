@@ -97,14 +97,11 @@ def split_interval(intervals, worflows):
                         bounds_1.append((interval[2][i][0], split_val))
                         bounds_2.append((split_val+1, interval[2][i][1]))
                     else:
-                        bounds_1.append((interval[2][i][0], split_val-1))
-                        bounds_2.append((split_val, interval[2][i][1]))
-            if comparison == '>':
-                new_intervals.append((destination, 0, tuple(bounds_2)))
-                new_intervals.append((w_key, w_pos+1, tuple(bounds_1)))
-            else:
-                new_intervals.append((destination, 0, tuple(bounds_1)))
-                new_intervals.append((w_key, w_pos+1, tuple(bounds_2)))
+                        bounds_2.append((interval[2][i][0], split_val-1))
+                        bounds_1.append((split_val, interval[2][i][1]))
+                        
+            new_intervals.append((destination, 0, tuple(bounds_2)))
+            new_intervals.append((w_key, w_pos+1, tuple(bounds_1)))
 
     return new_intervals
 
