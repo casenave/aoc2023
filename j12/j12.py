@@ -1,3 +1,5 @@
+print("DISCLAMER: memoization trick inspired from https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/")
+
 with open('j12_input.txt') as f:
     input = f.readlines()
 
