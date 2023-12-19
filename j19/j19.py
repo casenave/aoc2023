@@ -3,8 +3,6 @@ import numpy as np
 with open('j19_input.txt') as f:
     input = f.readlines()
 
-# print(input)
-
 worflows = {}
 ratings = []
 
@@ -42,8 +40,6 @@ def apply_condition(rating, workflow):
         else:
             raise("bad condition formatting")
 
-
-# print("worflows =", worflows)
 
 accepted = []
 for rating in ratings:
