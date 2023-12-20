@@ -60,7 +60,7 @@ def run_part_1(data_string):
         # print("====")
         return new_pulses, lp, count_high, count_low
 
-    def treat_pulses(location, lp, energy, type, state, latest_pulses, dest, origs):
+    def treat_pulses(lp, energy, type, state, latest_pulses, dest, origs):
 
         # print("location, energy =", location, energy)
         # print("state, destinations =", states[location], destinations[location])
@@ -156,7 +156,7 @@ def run_part_1(data_string):
                 dest = destinations[location]
                 lp = latest_pulses[location]
 
-                new_pulses, state, lp, latest_pulses, count_high, count_low = treat_pulses(location, lp, energy, type, state, latest_pulses, dest, origs)
+                new_pulses, state, lp, latest_pulses, count_high, count_low = treat_pulses(lp, energy, type, state, latest_pulses, dest, origs)
 
                 states[location] = state
                 latest_pulses[location] = lp
@@ -190,15 +190,13 @@ EXAMPLE_1 = """broadcaster -> a, b, c
 %a -> b
 %b -> c
 %c -> inv
-&inv -> a
-"""
+&inv -> a"""
 
 EXAMPLE_2 = """broadcaster -> a
 %a -> inv, con
 &inv -> b
 %b -> con
-&con -> output
-"""
+&con -> output"""
 
 print('assert part 1 example 1 correct ?', run_part_1(EXAMPLE_1)==32000000)
 print('assert part 1 example 2 correct ?', run_part_1(EXAMPLE_2)==11687500)
