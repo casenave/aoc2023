@@ -154,4 +154,4 @@ def run_part_2_working():
     return cache[r+2*n]+(k-2)*(2*d1+(k-1)*d2)//2
 
 print("===")
-print('res part 1 =', run_part_2_working())
+print('res part 2 =', run_part_2_working())
