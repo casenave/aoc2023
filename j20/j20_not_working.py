@@ -134,11 +134,7 @@ def run_part_1(data_string):
 
         pulses = [["broadcaster", "low"]]
         total_count_low += 1
-        string = "button -low-> broadcaster\n"
-
-        count = 0
-
-
+        # string = "button -low-> broadcaster\n"
 
         while len(pulses) > 0:
 
